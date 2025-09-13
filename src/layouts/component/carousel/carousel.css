@@ -1,0 +1,66 @@
+.carousel-animation {
+  transition: 0.35s transform cubic-bezier(0.57, 0.16, 0.95, 0.67);
+}
+
+@layer qwik-ui {
+  [data-qui-carousel-viewport] {
+    overflow: hidden;
+  }
+
+  [data-qui-carousel-scroller] {
+    transform: var(--transform);
+    will-change: transform;
+    transition: 0.3s transform ease-out;
+
+    display: flex;
+    gap: var(--gap);
+    flex-direction: var(--orientation);
+
+    /* for initial slide position */
+    scroll-snap-type: both mandatory;
+    max-height: calc(var(--max-slide-height));
+  }
+
+  [data-qui-carousel-slide] {
+    /* default, feel free to override */
+    --total-gap-width: calc(var(--gap) * (var(--slides-per-view) - 1));
+    --available-slide-width: calc(100% - var(--total-gap-width));
+    --slide-width: calc(var(--available-slide-width) / var(--slides-per-view));
+
+    flex-basis: var(--slide-width);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-qui-carousel-player] {
+      display: none;
+    }
+  }
+}
+
+.img-wrapper {
+  max-width:100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+img {
+  width: 100% !important;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.carousel-buttons{
+  display: flex;
+  justify-content: space-between;
+  max-width: 540px;
+  width: 100%;
+  gap: 12px;
+  margin-top: 16px;
+  position: absolute;
+  top:27vh;
+  z-index: 333;
+}
